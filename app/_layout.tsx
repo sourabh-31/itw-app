@@ -5,9 +5,12 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { View } from "react-native";
 import "react-native-reanimated";
+import * as NavigationBar from "expo-navigation-bar";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+// NavigationBar.setBackgroundColorAsync("#000");
 
 export default function RootLayout() {
   const [loaded] = useFonts({
