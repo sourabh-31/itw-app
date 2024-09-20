@@ -20,7 +20,7 @@ const getImageSource = (imgSrc: string) => {
 
 export default function QuickActions() {
   return (
-    <View className="mt-8">
+    <View className="mt-2">
       <Heading className="pl-4">Quick Actions</Heading>
       <FlatList
         className="mt-4"

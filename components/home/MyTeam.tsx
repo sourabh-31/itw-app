@@ -18,7 +18,7 @@ const getImageSource = (imgSrc: string) => {
 
 export default function MyTeam() {
   return (
-    <View className="mt-8 mb-10">
+    <View className="mt-8 mb-8">
       <Heading className="pl-4">My Team</Heading>
 
       <View className="mt-1 px-3">

@@ -11,6 +11,7 @@ type FeedProps = {
   isActionBtn?: boolean;
   isBtnText?: boolean;
   isBorder?: boolean;
+  lottieSrc: any;
 };
 
 export default function Feed({
@@ -19,6 +20,7 @@ export default function Feed({
   isActionBtn = false,
   isBtnText = false,
   isBorder = false,
+  lottieSrc,
 }: FeedProps) {
   const animation = useRef<LottieView>(null);
 
@@ -76,7 +78,7 @@ export default function Feed({
               width: 70,
               height: 70,
             }}
-            source={require("@/assets/lottie/check-badge.json")}
+            source={lottieSrc}
           />
         </View>
       </View>

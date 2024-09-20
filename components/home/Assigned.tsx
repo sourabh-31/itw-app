@@ -34,6 +34,7 @@ export default function Assigned() {
         title="Assigned for you"
         isTag
         tagName="BO"
+        isLength
         tagClassName="text-[#000080] bg-[#B6EAFF]"
       >
         <FlatList

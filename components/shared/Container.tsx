@@ -11,6 +11,7 @@ type ContainerProps = {
   isTag?: boolean;
   tagClassName?: string;
   tagName?: string;
+  isLength?: boolean;
 };
 
 export default function Container({
@@ -20,6 +21,7 @@ export default function Container({
   isTag = false,
   tagClassName,
   tagName,
+  isLength = false,
 }: ContainerProps) {
   return (
     <View>
@@ -35,15 +37,24 @@ export default function Container({
           )}
         </View>
 
-        <Link
-          href="/(tabs)/"
-          className={clsx(
-            "text-white font-mulish",
-            isLinkUnderline && "underline"
+        <View className="flex-row items-center gap-1">
+          <Link
+            href="/(tabs)/"
+            className={clsx(
+              "text-white font-mulish",
+              isLinkUnderline && "underline"
+            )}
+          >
+            Show all
+          </Link>
+          {isLength && (
+            <View className="bg-[#a82142] rounded-full w-[18] h-[18] items-center justify-center">
+              <Text className="text-white text-[10px] font-mulishSemiBold">
+                10
+              </Text>
+            </View>
           )}
-        >
-          Show all
-        </Link>
+        </View>
       </View>
 
       {children}

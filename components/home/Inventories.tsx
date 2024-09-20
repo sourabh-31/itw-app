@@ -33,6 +33,7 @@ export default function Inventories() {
       <Container
         title="Your Inventories"
         isTag
+        isLength
         tagName="PO"
         tagClassName="text-[#228B22] bg-[#CEFFCE]"
       >
