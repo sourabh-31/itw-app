@@ -71,7 +71,7 @@ export default function NewsFeed() {
             height={160}
             data={FeedItems}
             onSnapToItem={(index) => setActiveIndex(index)}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <View className="pl-4">
                 <Feed
                   topic={item.topic}
@@ -80,6 +80,8 @@ export default function NewsFeed() {
                   isBorder={item.isBorder}
                   isBtnText={item.isBtnText}
                   lottieSrc={item.lottieSrc}
+                  activeIndex={activeIndex ?? 0}
+                  currentIndex={index ?? 0}
                 />
               </View>
             )}

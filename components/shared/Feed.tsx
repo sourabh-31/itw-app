@@ -27,6 +27,8 @@ type FeedProps = {
   isBtnText?: boolean;
   isBorder?: boolean;
   lottieSrc: any;
+  activeIndex: number;
+  currentIndex: number;
 };
 
 export default function Feed({
@@ -36,38 +38,39 @@ export default function Feed({
   isBtnText = false,
   isBorder = false,
   lottieSrc,
+  activeIndex,
+  currentIndex,
 }: FeedProps) {
   const animation = useRef<LottieView>(null);
 
   const shimmerAnimation = useRef(new Animated.Value(0)).current;
+
+  // Only run shimmer for the active feed
+  useEffect(() => {
+    if (activeIndex === currentIndex) {
+      startShimmerAnimation();
+    }
+
+    return () => {
+      shimmerAnimation.stopAnimation();
+    };
+  }, [activeIndex, currentIndex]); // Listen to changes in activeIndex
 
   const startShimmerAnimation = () => {
     shimmerAnimation.setValue(0);
     Animated.loop(
       Animated.timing(shimmerAnimation, {
         toValue: 1,
-        duration: 2500,
+        duration: 2450,
         easing: Easing.linear,
         useNativeDriver: true,
       })
     ).start();
   };
 
-  useEffect(() => {
-    startShimmerAnimation();
-    return () => {
-      shimmerAnimation.stopAnimation();
-    };
-  }, []);
-
-  useEffect(() => {
-    shimmerAnimation.setValue(0);
-    startShimmerAnimation();
-  }, [topic, description]);
-
   const translateX = shimmerAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [-327, 327],
+    outputRange: [-306, 306], // Adjusted for SVG width
   });
 
   return (
@@ -77,7 +80,7 @@ export default function Feed({
         <Defs>
           <LinearGradient id="shimmer" x1="0" y1="0" x2="1" y2="0">
             <Stop offset="0%" stopColor="rgba(255,255,255,0)" />
-            <Stop offset="50%" stopColor="rgba(255,255,255,0.12)" />
+            <Stop offset="50%" stopColor="rgba(255,255,255,0.2)" />
             <Stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </LinearGradient>
           <Mask id="mask">
