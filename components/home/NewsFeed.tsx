@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Dimensions, Text } from "react-native";
 import Container from "../shared/Container";
-import Feed from "./Feed";
 import Carousel from "react-native-reanimated-carousel";
 import { FeedItems } from "@/data/home.data";
+import Feed from "../shared/Feed";
 
 const { width } = Dimensions.get("window");
 
