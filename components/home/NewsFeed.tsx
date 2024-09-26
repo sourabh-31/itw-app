@@ -57,7 +57,7 @@ const PaginationBar = ({
 // News Feed Section
 
 export default function NewsFeed() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const { data = null, isLoading, isError } = useBrandsAndTeam();
   const newsData = data?.news?.slice(0, 3) ?? [];
@@ -75,7 +75,11 @@ export default function NewsFeed() {
               width={width}
               height={160}
               data={newsData}
-              onSnapToItem={(index) => setActiveIndex(index)}
+              onProgressChange={(_, absoluteProgress) => {
+                const index = Math.round(absoluteProgress) % newsData.length;
+                setActiveIndex(index);
+              }}
+              // onSnapToItem={(index) => setActiveIndex(index)}
               renderItem={({ item }) => (
                 <View className="pl-4">
                   <Feed

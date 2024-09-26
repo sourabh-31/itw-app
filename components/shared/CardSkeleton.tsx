@@ -12,7 +12,10 @@ export default function CardSkeleton() {
   } as const;
 
   return (
-    <View className="flex-1 w-[325] rounded-2xl p-5" style={styles.bgColor}>
+    <View
+      className="flex-1 w-[325] h-[375] rounded-3xl p-5"
+      style={styles.bgColor}
+    >
       {/* Card Header */}
       <View className="flex-row justify-between mb-5">
         <View className="rounded-full">

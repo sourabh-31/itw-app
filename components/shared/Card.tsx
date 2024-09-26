@@ -18,7 +18,7 @@ const Card = ({
 }) => {
   return (
     <View
-      className="flex-1 w-[325] rounded-3xl p-3 mx-2"
+      className="flex-1 w-[325] h-[375] rounded-3xl p-3 mx-2"
       style={{ backgroundColor: bgColor }}
     >
       {children}
@@ -68,9 +68,9 @@ const CardContent = ({
   keyword2: string;
 }) => {
   return (
-    <View className="flex-row items-center rounded-full bg-[#f7fbf7]">
-      <View className="flex-1 px-6 py-2">
-        <Text className="text-sm mb-1 font-mulishBold">
+    <View className="flex-row items-center rounded-full bg-[#f7fbf7] h-[56]">
+      <View className="flex-1 px-5 justify-center">
+        <Text className="text-sm mb-1 font-mulishBold" numberOfLines={1}>
           {truncate(title, { length: 25 })}
         </Text>
         <View className="flex-row items-center gap-2">
@@ -87,7 +87,7 @@ const CardContent = ({
         </View>
       </View>
       <Link to="/">
-        <View className="rounded-full bg-white p-5 shadow-sm">
+        <View className="rounded-full bg-white shadow-sm h-[56] w-[56] items-center justify-center">
           <Image
             source={require("@/assets/images/png/chevron-right.png")}
             className="w-6 h-6"
@@ -106,7 +106,7 @@ const CardAction = ({ name }: { name: string }) => {
       : require("@/assets/images/png/stats.png");
 
   return (
-    <View className="flex-row items-center self-end mr-6 rounded-b-full bg-white bg-opacity-50 px-6 py-2 shadow-sm">
+    <View className="flex-row items-center self-end mr-6 rounded-b-full bg-white bg-opacity-50 px-6 h-[28] shadow-sm">
       <ActionLink
         icon={require("@/assets/images/png/deck.png")}
         text="Deck"
