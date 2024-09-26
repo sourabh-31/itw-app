@@ -11,7 +11,7 @@ type ContainerProps = {
   isTag?: boolean;
   tagClassName?: string;
   tagName?: string;
-  isLength?: boolean;
+  length?: number;
 };
 
 export default function Container({
@@ -21,7 +21,7 @@ export default function Container({
   isTag = false,
   tagClassName,
   tagName,
-  isLength = false,
+  length = 0,
 }: ContainerProps) {
   return (
     <View>
@@ -47,10 +47,10 @@ export default function Container({
           >
             Show all
           </Link>
-          {isLength && (
+          {length !== 0 && (
             <View className="bg-[#a82142] rounded-full w-[18] h-[18] items-center justify-center">
               <Text className="text-white text-[10px] font-mulishSemiBold">
-                10
+                {length || 0}
               </Text>
             </View>
           )}

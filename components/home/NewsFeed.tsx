@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { View, Dimensions, Text } from "react-native";
 import Container from "../shared/Container";
 import Carousel from "react-native-reanimated-carousel";
-import { FeedItems } from "@/data/home.data";
 import Feed from "../shared/Feed";
+import { useBrandsAndTeam } from "@/hooks/useHomeApi";
+import FeedSkeleton from "../shared/FeedSkeleton";
 
 const { width } = Dimensions.get("window");
 
@@ -58,35 +59,41 @@ const PaginationBar = ({
 export default function NewsFeed() {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const { data = null, isLoading, isError } = useBrandsAndTeam();
+  const newsData = data?.news?.slice(0, 3) ?? [];
+
   return (
     <View className="mt-8">
       <Container title="News Feed" isLinkUnderline={false}>
-        <View className="mt-3">
-          <Carousel
-            loop
-            autoPlay={true}
-            autoPlayInterval={2500}
-            scrollAnimationDuration={1000}
-            width={width}
-            height={160}
-            data={FeedItems}
-            onSnapToItem={(index) => setActiveIndex(index)}
-            renderItem={({ item, index }) => (
-              <View className="pl-4">
-                <Feed
-                  topic={item.topic}
-                  description={item.description}
-                  isActionBtn={item.isActionBtn}
-                  isBorder={item.isBorder}
-                  isBtnText={item.isBtnText}
-                  lottieSrc={item.lottieSrc}
-                  activeIndex={activeIndex ?? 0}
-                  currentIndex={index ?? 0}
-                />
-              </View>
-            )}
-          />
-        </View>
+        {!isLoading && !isError ? (
+          <View className="mt-3">
+            <Carousel
+              loop
+              autoPlay={true}
+              autoPlayInterval={2500}
+              scrollAnimationDuration={1000}
+              width={width}
+              height={160}
+              data={newsData}
+              onSnapToItem={(index) => setActiveIndex(index)}
+              renderItem={({ item }) => (
+                <View className="pl-4">
+                  <Feed
+                    topic={item.title}
+                    description={item.description}
+                    isActionBtn={item.newsType === "CALENDAR"}
+                    isBtnText={item.newsType === "GENERAL"}
+                    lottieSrc={item.imageUrl}
+                  />
+                </View>
+              )}
+            />
+          </View>
+        ) : (
+          <View className="mt-3 ml-4 mb-2">
+            <FeedSkeleton />
+          </View>
+        )}
 
         {/* Indicator */}
 
@@ -98,7 +105,10 @@ export default function NewsFeed() {
             alignItems: "center",
           }}
         >
-          <PaginationBar activeIndex={activeIndex} count={FeedItems.length} />
+          <PaginationBar
+            activeIndex={activeIndex}
+            count={newsData?.length ?? 0}
+          />
         </View>
       </Container>
     </View>

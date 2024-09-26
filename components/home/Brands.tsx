@@ -1,43 +1,37 @@
 import { View } from "react-native";
 import Heading from "../shared/Heading";
-import { BrandData } from "@/data/home.data";
 import Tile from "../shared/Tile";
-
-const getImageSource = (imgSrc: string) => {
-  switch (imgSrc) {
-    case "@/assets/images/png/brands/leaguex-logo.png":
-      return require("@/assets/images/png/brands/leaguex-logo.png");
-    case "@/assets/images/png/brands/bmw-logo.png":
-      return require("@/assets/images/png/brands/bmw-logo.png");
-    case "@/assets/images/png/brands/google-logo.png":
-      return require("@/assets/images/png/brands/google-logo.png");
-    default:
-      return null;
-  }
-};
+import { useBrandsAndTeam } from "@/hooks/useHomeApi";
 
 export default function Brands() {
+  const { data = null, isLoading, isError } = useBrandsAndTeam();
+  const brandsData = data?.userBrands?.brands ?? [];
+
   return (
     <View className="mt-8">
       <Heading className="pl-4">Your Brands</Heading>
 
       <View className="mt-1 pl-3">
-        {BrandData.map((data) => (
-          <Tile
-            key={data.id}
-            name={data.name}
-            details={data.details}
-            imgUrl={getImageSource(data.img)}
-            isOverflow
-          />
-        ))}
+        {!isLoading && !isError
+          ? brandsData
+              .slice(0, 3)
+              .map((data) => (
+                <Tile
+                  key={data.brandId}
+                  name={data.brandName}
+                  details={`${data.eventCount} Events`}
+                  imgUrl={data.brandImageUrl}
+                  isOverflow
+                />
+              ))
+          : null}
 
         <Tile
           name="Show All Brands"
-          details="80 Brand"
-          imgUrl={require("@/assets/images/png/brands/brands.png")}
+          details={`${brandsData?.length ?? 0} Brands`}
           isLast
           isOverflow
+          isShowAll
         />
       </View>
     </View>

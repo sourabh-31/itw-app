@@ -12,6 +12,7 @@ import Animated, {
   cancelAnimation,
 } from "react-native-reanimated";
 import { Easing } from "react-native-reanimated";
+import { truncate } from "lodash";
 
 // Memoized Path component
 const MemoizedPath = memo(
@@ -34,20 +35,16 @@ type FeedProps = {
   isBtnText?: boolean;
   isBorder?: boolean;
   lottieSrc: any;
-  activeIndex: number;
-  currentIndex: number;
 };
 
-export default function Feed({
+const Feed = ({
   topic,
   description,
   isActionBtn = false,
   isBtnText = false,
   isBorder = false,
   lottieSrc,
-  activeIndex,
-  currentIndex,
-}: FeedProps) {
+}: FeedProps) => {
   const animation = useRef<LottieView>(null);
 
   const AnimatedLinearGradient =
@@ -100,9 +97,11 @@ export default function Feed({
       {/* Box content */}
       <View className="absolute top-0 left-0 z-10 flex flex-col p-4 h-fit w-full text-xl">
         <Heading className="text-yellow" size="base">
-          {topic}
+          {truncate(topic, { length: 24 })}
         </Heading>
-        <StyledText className="w-[60%] mt-1">{description}</StyledText>
+        <StyledText className="w-[60%] mt-1">
+          {truncate(description, { length: isActionBtn ? 50 : 100 })}
+        </StyledText>
 
         {/* Action Btn */}
         {isActionBtn && (
@@ -134,7 +133,7 @@ export default function Feed({
               width: 70,
               height: 70,
             }}
-            source={lottieSrc}
+            source={{ uri: lottieSrc }}
           />
         </View>
       </View>
@@ -163,7 +162,7 @@ export default function Feed({
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -175,3 +174,5 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
 });
+
+export default Feed;

@@ -1,42 +1,36 @@
 import { View } from "react-native";
 import Heading from "../shared/Heading";
-import { TeamData } from "@/data/home.data";
 import Tile from "../shared/Tile";
-
-const getImageSource = (imgSrc: string) => {
-  switch (imgSrc) {
-    case "@/assets/images/png/members/member1.png":
-      return require("@/assets/images/png/members/member1.png");
-    case "@/assets/images/png/members/member2.png":
-      return require("@/assets/images/png/members/member2.png");
-    case "@/assets/images/png/members/member3.png":
-      return require("@/assets/images/png/members/member3.png");
-    default:
-      return null;
-  }
-};
+import { useBrandsAndTeam } from "@/hooks/useHomeApi";
+import { roleCombiner } from "@/lib/utils";
 
 export default function MyTeam() {
+  const { data = null, isLoading, isError } = useBrandsAndTeam();
+  const teamData = data?.userTeam?.teamMembers ?? [];
+
   return (
     <View className="mt-8 mb-8">
       <Heading className="pl-4">My Team</Heading>
 
       <View className="mt-1 px-3">
-        {TeamData.map((data) => (
-          <Tile
-            key={data.id}
-            name={data.name}
-            details={data.details}
-            imgUrl={getImageSource(data.img)}
-          />
-        ))}
+        {!isLoading && !isError
+          ? teamData
+              .slice(0, 3)
+              .map((data) => (
+                <Tile
+                  key={data.userId}
+                  name={data.userFirstName}
+                  details={`${roleCombiner(data.roles)}`}
+                  imgUrl={data.profileImageUrl}
+                />
+              ))
+          : null}
 
         <Tile
-          name="Show All"
-          details="10 Brand Owners"
-          imgUrl={require("@/assets/images/png/members/members.png")}
-          isShowAll
+          name="Show All Brands"
+          details={`${teamData?.length ?? 0} Brand Owners`}
           isLast
+          isShowAll
         />
       </View>
     </View>

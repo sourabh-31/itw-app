@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Link } from "@react-navigation/native";
+import { truncate } from "lodash";
 
 const Card = ({
   children,
@@ -25,14 +26,17 @@ const Card = ({
   );
 };
 
-const CardHeader = ({ linkHref = "/" }: { linkHref?: string }) => {
+const CardHeader = ({
+  linkHref = "/",
+  icon,
+}: {
+  linkHref?: string;
+  icon?: string;
+}) => {
   return (
     <View className="flex-row items-center justify-between">
       <View className="rounded-full p-2 bg-[#242632]">
-        <Image
-          source={require("@/assets/images/png/stadium.png")}
-          className="w-[34px] h-[34px]"
-        />
+        <Image source={{ uri: icon }} className="w-[34px] h-[34px]" />
       </View>
       <Link to={linkHref}>
         <View className="rounded-full bg-white p-3">
@@ -66,7 +70,9 @@ const CardContent = ({
   return (
     <View className="flex-row items-center rounded-full bg-[#f7fbf7]">
       <View className="flex-1 px-6 py-2">
-        <Text className="text-sm mb-1 font-mulishBold">{title}</Text>
+        <Text className="text-sm mb-1 font-mulishBold">
+          {truncate(title, { length: 25 })}
+        </Text>
         <View className="flex-row items-center gap-2">
           <View className="flex-row items-center rounded-full bg-[#FF6161] px-2 py-[2px]">
             <Image
@@ -142,7 +148,7 @@ const Button = ({
   hrefTo?: string;
 }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity className="mt-auto">
       <View className="items-center justify-center rounded-full bg-[#0094ff] p-[14px]">
         <Text className="text-sm font-mulishBold text-white">{children}</Text>
       </View>

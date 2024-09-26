@@ -3,8 +3,6 @@ import {
   QuickActionDataType,
   TeamDataType,
 } from "@/types/home.type";
-import checkBadgeLottie from "@/assets/lottie/check-badge.json";
-import medalGoldLottie from "@/assets/lottie/medal-gold.json";
 
 export const InventoryData: InventoryDataType[] = [
   {
@@ -138,29 +136,5 @@ export const BrandData: TeamDataType[] = [
     name: "Google",
     details: "8 Events",
     img: "@/assets/images/png/brands/google-logo.png",
-  },
-];
-
-export const FeedItems = [
-  {
-    topic: "📃Sep'24 Events List",
-    description: "Hey team, here is the new events list for September...",
-    isActionBtn: true,
-    isBorder: true,
-    lottieSrc: checkBadgeLottie,
-  },
-  {
-    topic: "Top Performers",
-    description:
-      "Congratulations to Maya, our outstanding top performer this month! Your dedication is truly remarkable.",
-    isBtnText: true,
-    lottieSrc: medalGoldLottie,
-  },
-  {
-    topic: "Top Performers",
-    description:
-      "Congratulations to Maya, our outstanding top performer this month! Your dedication is truly remarkable.",
-    isBtnText: true,
-    lottieSrc: medalGoldLottie,
   },
 ];

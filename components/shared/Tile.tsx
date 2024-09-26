@@ -12,17 +12,18 @@ import Heading from "./Heading";
 
 interface TilePropsType {
   name: string;
-  details: string;
-  imgUrl: string;
+  details: string | number;
+  imgUrl?: string;
   isShowAll?: boolean;
   isLast?: boolean;
   isOverflow?: boolean;
+  tileName?: string;
 }
 
 export default function Tile({
   name,
   details,
-  imgUrl,
+  imgUrl = "",
   isShowAll = false,
   isLast = false,
   isOverflow = false,
@@ -33,13 +34,11 @@ export default function Tile({
       <View className="z-20">
         {!isShowAll ? (
           <Image
-            source={imgUrl as ImageSourcePropType | undefined}
-            className="rounded-full h-16 w-16"
+            source={{ uri: imgUrl }}
+            className="rounded-full h-16 w-16 bg-[#D8DFE9]"
           />
         ) : (
-          <View className="bg-[#1a2d68] rounded-full p-3">
-            <Image source={imgUrl as ImageSourcePropType | undefined} />
-          </View>
+          <View className="bg-[#1a2d68] h-16 w-16 rounded-full p-3"></View>
         )}
       </View>
 

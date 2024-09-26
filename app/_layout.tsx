@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { View } from "react-native";
 import "react-native-reanimated";
 import * as NavigationBar from "expo-navigation-bar";
+import Providers from "@/lib/Providers";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,16 +33,18 @@ export default function RootLayout() {
   }
 
   return (
-    <View className="flex-1">
-      <StatusBar
-        style="light"
-        backgroundColor="transparent"
-        translucent={true}
-      />
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </View>
+    <Providers>
+      <View className="flex-1">
+        <StatusBar
+          style="light"
+          backgroundColor="transparent"
+          translucent={true}
+        />
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </View>
+    </Providers>
   );
 }
